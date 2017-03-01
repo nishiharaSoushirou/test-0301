@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>JSONサンプル3</title>
+</head>
+<body>
+
+<script>
+function getJSON(){
+  var req = new XMLHttpRequest();
+      // オブジェクトの状態が変化した際に呼び出されるイベントハンドラ
+    req.onreadystatechange = function (){
+    if(req.readyState === 4 && req.status ===200){
+      //console.log(req.responseText);
+      //JSON文字列をオブジェクトに変換
+      var myData = JSON.parse(req.responseText);
+      var txt = " ";
+      for (var i = 0 ; i < myData.item.length ; i++){
+        txt = txt + myData.item[i].itemName + ' ' + myData.item[i].itemPrice + '円<br>';
+        }
+      document.getElementById("result").innerHTML = txt ;
+      }
+    }
+    // webサーバーにアクセスするメソッドとURLを指定
+    req.open("GET", "./data.json", true);
+    // webサーバーにリクエストを送信
+    req.send(null);
+  };
+
+
+
+</script>
+
+  <input type="button" value="JSONファイルの取得" onclick="getJSON();">
+  <p id="result"></p>
+
+</body>
+</html>
